@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useQuery } from 'react-query';
 
-import { PokemonsPage } from './pages';
+import { PokemonsPage, PokedexPage } from './pages';
+import { ROUTES } from './utils/constants';
 
 import './App.css';
 
@@ -9,7 +9,8 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<PokemonsPage />} />
+        <Route path={ROUTES.POKEMONS} element={<PokemonsPage />} />
+        <Route path={ROUTES.POKEDEX} element={<PokedexPage />} />
       </Routes>
     </BrowserRouter>
   );

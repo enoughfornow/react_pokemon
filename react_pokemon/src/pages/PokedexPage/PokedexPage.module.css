@@ -1,0 +1,16 @@
+.page_container {
+  @apply flex justify-center items-center h-screen;
+}
+.content_container {
+  @apply flex justify-between;
+}
+.list_container {
+}
+.pokemon_item {
+  @apply flex bg-slate-400 mb-2 overflow-hidden;
+  @apply text-sm text-white;
+}
+
+.pokemon_item_image {
+  @apply rounded-full w-8 h-8 scale-100;
+}
