@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useRequestPokemonQueries } from '../../utils/api/hooks/pokemon';
+import { useRequestPokemonQueries } from '../../utils/api/hooks';
 
 import { Pokemon } from './Pokemon/Pokemon';
 

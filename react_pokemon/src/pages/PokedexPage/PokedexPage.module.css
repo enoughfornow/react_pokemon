@@ -1,16 +1,61 @@
-.page_container {
+.page {
   @apply flex justify-center items-center h-screen;
 }
-.content_container {
+
+.content {
   @apply flex justify-between;
 }
-.list_container {
-}
+
 .pokemon_item {
-  @apply flex bg-slate-400 mb-2 overflow-hidden;
-  @apply text-sm text-white;
+  @apply flex justify-center items-center shadow-xl bg-slate-400 mb-4 py-3 px-4 overflow-hidden rounded-l-full transition-transform;
+  @apply hover:cursor-pointer hover:bg-black hover:scale-105;
+  @apply text-lg capitalize text-white font-bold;
+}
+
+.pokemon_item_active {
+  @apply bg-red-400;
+  @apply hover:bg-red-400;
 }
 
 .pokemon_item_image {
-  @apply rounded-full w-8 h-8 scale-100;
+  @apply rounded-full w-20 h-20 scale-150 mr-6;
+}
+
+.card {
+  @apply flex flex-col p-10 shadow-xl rounded-xl mr-6;
+}
+
+.card_title {
+  @apply flex justify-between items-center;
+}
+
+.card_title_name {
+  @apply text-2xl capitalize font-bold;
+}
+
+.card_title_id {
+  @apply text-lg font-semibold;
+}
+
+.card img {
+  @apply h-80 w-80;
+}
+
+.card_info {
+  @apply flex justify-between p-6;
+}
+
+.card_info_title {
+  @apply font-bold text-2xl text-black text-left;
+}
+
+.card_info_item {
+  @apply flex border-b-2 pb-1 mt-1;
+}
+
+.card_types {
+  @apply flex gap-2 mt-1;
+}
+.card_type {
+  @apply bg-gray-300 py-1 px-3 rounded-full text-white;
 }
