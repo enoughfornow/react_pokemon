@@ -3,7 +3,7 @@ import React from 'react';
 import { useRequestPokemonQueries, useRequestPokemonFormQuery } from '../../utils/api/hooks';
 import styles from './PokedexPage.module.css';
 
-export const PokedexPage = () => {
+export const PokedexPage:React.FC = () => {
   const [offset, setOffset] = React.useState(6);
   const [selectedPokemonId, setSelectedPokemonId] = React.useState(1);
   const results = useRequestPokemonQueries({ offset });
