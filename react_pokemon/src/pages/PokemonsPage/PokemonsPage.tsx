@@ -1,26 +1,66 @@
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
 
-import { useRequestPokemonQueries } from '../../utils/api/hooks';
+import { getPokemonId } from '../../utils/helpers/getPokemonId';
+import { useRequestPokemonInfiniteQuery } from '../../utils/api/hooks/pokemon';
 
-import { Pokemon } from './Pokemon/Pokemon';
+import styles from './PokemonsPage.module.css';
+import { useRequestPokemonQuery } from '../../utils/api/hooks/pokemon/id';
 
-export const PokemonsPage = () => {
-  const [offset, setOffset] = React.useState(1);
-  const results = useRequestPokemonQueries({ offset });
+interface PokemonInfoProps {
+  id: Pokemon['id'];
+}
 
-  const isLoading = results.some((result) => result.isLoading);
+export const PokemonInfo: React.FC<PokemonInfoProps> = ({ id }) => {
+  const { data, isLoading } = useRequestPokemonQuery({ params: { id } });
 
-  if (isLoading) return null;
+  if (isLoading || !data) return null;
 
-  const pokemons = results.map((result: any) => result.data.data);
+  return <div>sdfsdf</div>;
+};
+
+export const PokemonsPage: React.FC = () => {
+  const [pokemonId, setPokemonId] = React.useState<Pokemon['id'] | null>(null);
+  const { ref, inView } = useInView();
+
+  const { data, fetchNextPage, isLoading } = useRequestPokemonInfiniteQuery();
+
+  React.useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
+  if (isLoading || !data) return null;
+
+  const pokemons = data.pages.reduce(
+    (pokemons: NamedAPIResource[], { data }: any) => [...pokemons, ...data.results],
+    [],
+  );
 
   return (
     <div className="container">
-      <button onClick={() => setOffset(offset + 20)}> Load more</button>
-      <div className="grid grid-cols-3 gap-10">
-        {pokemons.map((pokemon, index) => (
-          <Pokemon pokemon={pokemon} key={index} />
-        ))}
+      <div className={styles.pokemons_container}>
+        {pokemons.map((pokemon: any, index: number) => {
+          const id = index + 1;
+          return (
+            <div
+              onMouseEnter={() => setPokemonId(id)}
+              onMouseLeave={() => setPokemonId(null)}
+              className={styles.pokemon_container}>
+              <div key={index} className={styles.pokemon}>
+                <div className={styles.pokemon_name}>{pokemon.name}</div>
+                <div className={styles.pokemon_number}>{getPokemonId(id)}</div>
+              </div>
+              {pokemonId === id && (
+                <div className={styles.pokemon_info}>
+                  <PokemonInfo id = {pokemonId}/>
+                </div>
+              )}
+            </div>
+          );
+        })}
+        <div ref={ref} />
       </div>
     </div>
   );

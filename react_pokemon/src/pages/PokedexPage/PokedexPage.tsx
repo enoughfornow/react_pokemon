@@ -1,21 +1,22 @@
 import classnames from 'classnames';
 import React from 'react';
-import { useRequestPokemonQueries, useRequestPokemonFormQuery } from '../../utils/api/hooks';
+import { useRequestPokemonsQueries, useRequestPokemonFormQuery } from '../../utils/api/hooks';
 import styles from './PokedexPage.module.css';
 
-export const PokedexPage:React.FC = () => {
+export const PokedexPage: React.FC = () => {
   const [offset, setOffset] = React.useState(6);
   const [selectedPokemonId, setSelectedPokemonId] = React.useState(1);
-  const results = useRequestPokemonQueries({ offset });
+  const results = useRequestPokemonsQueries({ offset });
   const isLoading = results.some((result) => result.isLoading);
-  const { data } = useRequestPokemonFormQuery({ id: 1 });
-  console.log('data', data);
-  
+  const { data } = useRequestPokemonFormQuery({
+    id: selectedPokemonId,
+  });
+
   if (isLoading) return null;
 
   const pokemons = results.map((result: any) => result.data.data);
   const selectedPokemon = pokemons.find((pokemon) => selectedPokemonId === pokemon.id)!;
-  console.log(selectedPokemon);
+
   return (
     <div className={styles.page}>
       <div className={styles.content}>

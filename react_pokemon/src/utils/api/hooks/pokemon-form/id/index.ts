@@ -3,6 +3,7 @@ import { requestPokemonForm } from '../../../requests';
 
 interface UseRequestPokemonFormQueryParams {
   id: number;
+  config?: any;
 }
 
 export const useRequestPokemonFormQuery = ({ id }: UseRequestPokemonFormQueryParams) =>

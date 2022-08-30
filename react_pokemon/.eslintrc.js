@@ -1,21 +1,24 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: ['plugin:react/recommended', 'airbnb', 'airbnb-typescript', 'prettier'],
+  parser: '@typescript-eslint/parser',
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
       parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
+        project: ['./tsconfig.json']
+      }
+    }
   ],
-  parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
     ecmaVersion: 'latest',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['react', '@typescript-eslint', 'prettier', 'simple-import-sort'],
   rules: {
@@ -28,8 +31,8 @@ module.exports = {
       2,
       {
         namedComponents: 'arrow-function',
-        unnamedComponents: 'arrow-function',
-      },
+        unnamedComponents: 'arrow-function'
+      }
     ],
     'import/prefer-default-export': 0,
     'react/jsx-props-no-spreading': 0,
@@ -57,9 +60,9 @@ module.exports = {
           // Other relative imports.
           ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           // Style imports.
-          ['^.+\\.s?css$'],
-        ],
-      },
-    ],
-  },
+          ['^.+\\.s?css$']
+        ]
+      }
+    ]
+  }
 };
