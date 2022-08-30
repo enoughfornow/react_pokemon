@@ -23,7 +23,10 @@ export const useRequestPokemonInfiniteQuery = () =>
     ({ pageParam = 0 }) =>
       requestPokemons({ params: { limit: REQUEST_POKEMONS_LIMIT, offset: pageParam } }),
     {
-      getNextPageParam: (_lastPokemonsData, allPokemonsData) =>
-        allPokemonsData.length * REQUEST_POKEMONS_LIMIT,
+      getNextPageParam: (lastPokemonsData, allPokemonsData) => {
+        const pokemonsCount = allPokemonsData.length * REQUEST_POKEMONS_LIMIT;
+        const hasNextPage = pokemonsCount < lastPokemonsData.data.count;
+        if (hasNextPage) return pokemonsCount;
+      },
     },
   );
